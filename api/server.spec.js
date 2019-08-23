@@ -36,27 +36,37 @@ describe("register request", () => {
   });
 });
 
-describe.skip("login success", () => {
+describe("login success", () => {
   it("login success", () => {
     return request(server)
       .post("/api/auth/login")
-      .set({'Content-Type': "json"})
       .send({
-        username: "Bilbo",
-        password: "Bilbo"
-      })
+        username: "asdf",
+        password: "asdf"
+    })
+      .expect(200)
+  });
+  it("login fail", () => {
+    return request(server)
+      .post("/api/auth/login")
+      .set('Content-Type', 'application/json')
+      .send({ username: "API 123 Test2" })
       .then(res => {
-        expect(res.status).toBe(200);
+        expect(res.status).toBe(401);
       });
   });
 });
-//.set({ 'API-Key': 'foobar', Accept: 'application/json' })
+
 describe.skip("Gets jokes", ()=>{
     it("joke fetch succeed", ()=>{
         return request(server).get("/api/jokes")
-        .set({'Content-Type': 'application/json', "Authorization": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjozLCJ1c2VybmFtZSI6IkJpbGJvIiwiaWF0IjoxNTY2NTc5NzgyLCJleHAiOjE1NjY2NjYxODJ9.LysMyEKvBZpKF4QyHn-iqhVOfkQXsllAhMlzI_TdAkU"})
+        .set({"Authorization": eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWJqZWN0IjozLCJ1c2VybmFtZSI6IkJpbGJvIiwiaWF0IjoxNTY2NTc5NzgyLCJleHAiOjE1NjY2NjYxODJ9.LysMyEKvBZpKF4QyHn-iqhVOfkQXsllAhMlzI_TdAkU})
+        .expect(200)
+    })
+    it("joke fetch fail", ()=>{
+        return request(server).get("/api/jokes")
         .then(res=>{
-            expect(res.status).toBe(200)
+            expect(res.status).toBe(401)
         })
     })
 })
