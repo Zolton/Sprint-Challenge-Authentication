@@ -13,17 +13,27 @@ describe("GET request", () => {
   });
 });
 
+describe("GET request fail", () => {
+    it("POST to server.js", () => {
+      return request(server)
+        .post("/api/auth")
+        .then(res => {
+          expect(res.status).toBe(404);
+        });
+    });
+  });
+
 describe("login", () => {
   describe("login agian", () => {
     it("should work", async () => {
       return await request(server)
         .post("/api/auth/register")
-        .send({ username: "FinalTest7", password: "FinalTest7" })
+        .send({ username: "FinalTest24", password: "FinalTest24" })
         .expect(200)
         .then(res => {
           request(server)
             .post("/api/auth/login")
-            .send({ username: "FinalTest7", password: "FinalTest7" })
+            .send({ username: "FinalTest24", password: "FinalTest24" })
             .expect(200)
             .then(res => {
               request(server)
@@ -34,7 +44,7 @@ describe("login", () => {
                       .eyJzdWJqZWN0IjozLCJ1c2VybmFtZSI6IkJpbGJvIiwiaWF0IjoxNTY2NTg2MTU1LCJleHAiOjE1NjY2NzI1NTV9
                       .tzzPWj6EmG0L53OFssRYp_zjIl6662pxskzjz5yRgxY
                 })
-                .expect(200);
+                .expect(200)
             });
         });
     });
@@ -42,7 +52,7 @@ describe("login", () => {
 });
 
 describe("register request", () => {
-  it("register fail", () => {
+  it("register fail for lack of password", () => {
     return request(server)
       .post("/api/auth/register")
       .send({ username: "API 123 Test2" })
@@ -52,22 +62,35 @@ describe("register request", () => {
   });
 });
 
-describe("login fail", () => {
-  it("login fail2", () => {
+describe("register request", () => {
+  it("register fail for lack of password", () => {
     return request(server)
-      .post("/api/auth/login")
-      .send({ username: "API 123 Test2" })
-      .expect(500);
-  });
-});
-
-describe("Gets jokes", () => {
-  it("joke fetch fail", () => {
-    return request(server)
-      .get("/api/jokes")
-      .send({ username: "API 123 Test2" })
+      .post("/api/auth/register")
+      .send({ password: "API 123 Test2" })
       .then(res => {
-        expect(res.status).toBe(401);
+        expect(res.status).toBe(500);
       });
   });
 });
+
+// describe("login fail", () => {
+//   it("login fail2", () => {
+//     return request(server)
+//       .post("/api/auth/login")
+//       .send({ username: "API 123 Test2", password: "asdfsadf" })
+//       .then(res => {
+//         expect(res.body).toMatchObject({ Error: "Password fail" });
+//       });
+//   });
+// });
+
+// describe("Gets jokes", () => {
+//   it("joke fetch fail", () => {
+//     return request(server)
+//       .get("/api/jokes")
+//       .send({ username: "API 123 Test2", password: "asdfsadf" })
+//       .then(res => {
+//         expect(res.status).toBe(401);
+//       });
+//   });
+// });
