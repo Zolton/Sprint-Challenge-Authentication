@@ -52,7 +52,7 @@ Implement an User Authentication System. Hash user's passwords before saving the
 
 - [ ] Implement the X`register` and `login` functionality inside `/auth/auth-router.js`. A `user` has `username` and `password`. Both properties are required.
 - [X] Implement the `authenticate` middleware inside `/auth/authenticate-middleware.js`.
-- [ ] Write a **minimum o 2 tests** for the API endpoints. Write more tests if you have time.
+- [X] Write a **minimum o 2 tests** for the API endpoints. Write more tests if you have time.
 
 **Note**: the database already has the users table, but if you run into issues, the migrations are available.
 

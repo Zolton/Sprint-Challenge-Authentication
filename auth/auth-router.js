@@ -1,6 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const db = require("../database/dbConfig");
+const jwt = require("jsonwebtoken")
 
 // Base URL -> api/auth
 
@@ -74,10 +75,10 @@ router.post("/login", (req, res) => {
   findUser(username)
     .first()
     .then(user => {
-      console.log("Hello from inside .then");
-      console.log(user);
+      //console.log("Hello from inside .then");
+      //console.log(user);
       if (user && bcrypt.compareSync(password, user.password)) {
-        console.log("Hello from inside if");
+        //console.log("Hello from inside if");
         const token = generateToken(user);
         res.status(200).json({ Welcome: "Here's your token", token });
       } else {
