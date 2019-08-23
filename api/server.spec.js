@@ -40,7 +40,7 @@ describe.skip("login success", () => {
   it("login success", () => {
     return request(server)
       .post("/api/auth/login")
-      .set({'Content-Type': 'application/json'})
+      .set({'Content-Type': "json"})
       .send({
         username: "Bilbo",
         password: "Bilbo"

@@ -1,7 +1,7 @@
 const router = require("express").Router();
 const bcrypt = require("bcryptjs");
 const db = require("../database/dbConfig");
-const jwt = require("jsonwebtoken")
+const jwt = require("jsonwebtoken");
 
 // Base URL -> api/auth
 
@@ -47,32 +47,13 @@ function generateToken(user) {
   return jwt.sign(payload, secret, options);
 }
 
-// function findBy (user) {
-//   return db("users").where({username: user})
-// }
-
-// router.post("/find", (req, res)=>{
-//   let username = req.body.username
-//   let password = req.body.password
-//   //let { username, password } = req.body;
-//   findUser(username).then(test=>{
-//     res.status.json(test)
-//   })
-//   .catch(error => {
-//     res.status(500).json({ Error: "User not found", username, password });
-//   });
-// })
-
-function findUser(user) {
-  return db("users").where({ username: user });
-}
-
 router.post("/login", (req, res) => {
   // implement login
   let username = req.body.username;
   let password = req.body.password;
-  //let { username, password } = req.body;
-  findUser(username)
+
+  db("users")
+    .where({ username })
     .first()
     .then(user => {
       //console.log("Hello from inside .then");
