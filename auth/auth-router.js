@@ -68,25 +68,27 @@ function findUser(user) {
 
 router.post("/login", (req, res) => {
   // implement login
-  let username = req.body.username
-  let password = req.body.password
+  let username = req.body.username;
+  let password = req.body.password;
   //let { username, password } = req.body;
   findUser(username)
     .first()
     .then(user => {
-      console.log("Hello from inside .then")
-      console.log(user)
+      console.log("Hello from inside .then");
+      console.log(user);
       if (user && bcrypt.compareSync(password, user.password)) {
-        console.log("Hello from inside if")
+        console.log("Hello from inside if");
         const token = generateToken(user);
         res.status(200).json({ Welcome: "Here's your token", token });
       } else {
-        console.log("hello from inside else")
+        console.log("hello from inside else");
         res.status(401).json({ Error: "Password fail" });
       }
     })
     .catch(error => {
-      res.status(500).json({ Error: "User not found", username, password, error });
+      res
+        .status(500)
+        .json({ Error: "User not found", username, password, error });
     });
 });
 
